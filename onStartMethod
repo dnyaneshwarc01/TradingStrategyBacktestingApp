@@ -1,0 +1,42 @@
+ public void onStart(IContext context) throws JFException {
+        try {
+            // Set cross-platform Java L&F (also called "Metal")
+            UIManager.setLookAndFeel(
+                    UIManager.getCrossPlatformLookAndFeelClassName());
+        } catch (IllegalAccessException e) {
+            JOptionPane.showMessageDialog(null, "IllegalAccessException !", "Strategy Alert",
+                    JOptionPane.WARNING_MESSAGE);
+        } catch (InstantiationException e) {
+            JOptionPane.showMessageDialog(null, "InstantiationException !", "Strategy Alert",
+                    JOptionPane.WARNING_MESSAGE);
+        } catch (UnsupportedLookAndFeelException e) {
+            JOptionPane.showMessageDialog(null, "UnsupportedLookAndFeelException !", "Strategy Alert",
+                    JOptionPane.WARNING_MESSAGE);
+        } catch (ClassNotFoundException e) {
+            JOptionPane.showMessageDialog(null, "ClassNotFoundException !", "Strategy Alert",
+                    JOptionPane.WARNING_MESSAGE);
+        }
+
+        // objects and variable initialization
+        myContext = context;
+        myEngine = context.getEngine();
+        myConsole = myContext.getConsole();
+        myHistory = myContext.getHistory();
+        myAccount = myContext.getAccount();
+        myPipValue = myInstrument.getPipValue();
+        myPipScale = myInstrument.getPipScale();
+        myForm = new OfflineForm();
+
+        // avoid to run outside of Historical Tester
+        if (myEngine.getType() != IEngine.Type.TEST) {
+            JOptionPane.showMessageDialog(null, "This strategy only runs on Historical Tester !", "Strategy Alert",
+                    JOptionPane.WARNING_MESSAGE);
+            myContext.stop();
+        } else {
+            Set subscribedInstruments = new HashSet();
+            subscribedInstruments.add(myInstrument);
+            myContext.setSubscribedInstruments(subscribedInstruments);
+            myForm.setVisible(true);
+        }
+
+    }// end onStart
