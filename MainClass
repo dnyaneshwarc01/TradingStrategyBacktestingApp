@@ -1,0 +1,26 @@
+@RequiresFullAccess // Some functions may need this
+public class Backtester implements IStrategy {
+
+    // configurable variables
+    @Configurable("Select instrument:")
+    public Instrument myInstrument = Instrument.EURUSD;
+    public double myPipValue;
+    public int myPipScale;
+    public double bidPrice = 0.00;
+    public double askPrice = 0.00;
+    public double spreadDiff = 0.00;
+    // controls
+    public boolean isPaused = false;
+    public Period pauseEvery = null;
+    // <editor-fold defaultstate="" desc="Main class variables">
+    // base objects creation
+    private IContext myContext = null;
+    private IEngine myEngine = null;
+    private IConsole myConsole = null;
+    private IHistory myHistory = null;
+    private IAccount myAccount = null;
+    // other variables
+    private OfflineForm myForm = null;
+    public Filter filterWeekend = Filter.WEEKENDS;
+    // </editor-fold>
+
