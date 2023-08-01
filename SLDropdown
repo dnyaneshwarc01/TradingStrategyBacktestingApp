@@ -1,0 +1,32 @@
+ // If SL dropdown changed
+            if (e.getSource() == slDropdown) {
+                String value = slDropdown.getSelectedItem().toString();
+                if (value == "Limit") {
+                    slField.setText(String.valueOf(bidPrice));
+                } else {
+                    slField.setText("10");
+                }
+            }
+// If SL dropdown changed
+            if (e.getSource() == tpDropdown) {
+                String value = tpDropdown.getSelectedItem().toString();
+                if (value == "Pips") {
+                    tpField.setText("10");
+                } else if (value == "Limit") {
+                    tpField.setText(String.valueOf(bidPrice));
+                } else {
+                    tpField.setText("3");
+                }
+            }
+               if (e.getSource() == buyButton) {
+                boolean fieldsOk = validateFields("BUY", -111);
+
+                if (!fieldsOk) {
+                    return;
+                }
+                try {
+                    placeOrder("BUY");
+                } catch (JFException ex) {
+                    Logger.getLogger(NephewSamBacktester.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
