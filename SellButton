@@ -1,0 +1,12 @@
+ // SELL BUTTON
+            if (e.getSource() == sellButton) {
+                boolean fieldsOk = validateFields("SELL", -111);
+                if (!fieldsOk) {
+                    return;
+                }
+                try {
+                    placeOrder("SELL");
+                } catch (JFException ex) {
+                    Logger.getLogger(NephewSamBacktester.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
